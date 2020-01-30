@@ -1,48 +1,25 @@
+
 class Journey
-
-  MINIMUM_BALANCE = 1
-  MAXIMUM_BALANCE = 90
-  FARE = 1
   PENALTY_FARE = 6
-
-  attr_reader :balance, :list_stations
-  attr_accessor :status
+  MINIMUM_FARE = 1
   
+  attr_reader :entry_station, :exit_stations
+
   def initialize
-      @balance = 0
-      @status = false
-      @list_stations = {}
+    @entry_station = nil
+    @exit_stations = nil
   end
 
-  def top_up(amount)
-      fail 'Maximum balance exceeded' if amount + balance > MAXIMUM_BALANCE
-      @balance += amount
-  end
-
-  def in_journey?
-      @status 
-  end 
-
-  def touch_in(station)
-      fail 'Low balance' if @balance < MINIMUM_BALANCE
-      @status = true
-      @list_stations.store(:entry_station, station)
-  end
-
-  def touch_out(station)
-      @status = false
-      deduct(FARE)
-      @list_stations.store(:exit_station, station)
-  end
-  
   def fare
-    @list_stations.length == 2 ? FARE : PENALTY_FARE
+    if @entry_station.nil? || @entry_station.nil?
+      PENALTY_FARE
+    else
+      MINIMUM_FARE
+    end
   end
 
-  private
-
-  def deduct(amount)
-    @balance -= amount
+  def entry_station(station1)
+    @entry_station = station1
   end
 
 end

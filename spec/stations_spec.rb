@@ -11,6 +11,7 @@ describe Station do
     expect(subject.name).to eq "happyland"
   end
 end
+
 describe Station do
 
   subject {described_class.new(name:"Makers", zone: 2)}
